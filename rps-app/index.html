@@ -4,16 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors Game</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/styles.css"> <!-- Link to your CSS file -->
 </head>
 <body>
-    <div class="main-container">
+    <!-- Main Menu -->
+    <div id="main-menu" class="main-container">
         <div class="content-wrapper">
             <div class="game-container">
                 <h1>Rock Paper Scissors Game</h1>
-                <a class="button" href="#">Play Game</a>
+                <a id="start-game-btn" class="button" href="#">Play Game</a>
             </div>
         </div>
     </div>
+
+    <!-- Game UI -->
+    <div id="game-ui" class="main-container hidden">
+        <div class="status-bar">
+            <div id="timer-box">Time: 00:00</div>
+            <div id="lives-box">Lives: 3</div>
+            <div id="score-box">Score: 0</div>
+            <div id="state-box">Press Space to Start</div>
+        </div>
+        <div class="content-wrapper">
+            <div class="game-container">
+                <p id="instructions">Press Space to Begin</p>
+                <div class="info">
+                    <div id="score-box">Score: 0</div>
+                    <div id="lives-box">Lives: 3</div>
+                    <div id="timer-box">Time: 00:00</div>
+                    <div id="state-box">State: Ready</div>
+                </div>
+                <!-- Game Area for Rock Paper Scissors Choices -->
+                <div id="game-area" class="game-area">
+                    <!-- Game controls and choices will go here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over" class="main-container hidden">
+        <div class="content-wrapper">
+            <div class="game-container">
+                <h2>Game Over</h2>
+                <p id="final-score">Final Score: 0</p>
+                <button id="restart-game-btn" class="button">Restart Game</button>
+                <button id="return-menu-btn" class="button">Return to Main Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script> <!-- Link to your JavaScript file -->
 </body>
 </html>
