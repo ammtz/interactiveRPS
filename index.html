@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R-P-S Game</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div class="base">
+        <nav class="sidenav">
+            <ul>
+                <li><a href="#">Start New Game</a></li>
+            </ul>
+        </nav>
+        <div class="game-wrapper">
+            <h1 class="centered">Rock Paper Scissors</h1>
+            <div class="game-numbers">
+                <ul>
+                    <li>Score: <span id="player-score">{ player_score }</span></li>
+                    <li>
+                        <label for="player-lives">Health</label>
+                        <progress id="player-lives" max="3" value="3">3</progress>
+                    </li>
+                    <li>State: <span id="game-state">{ state }</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="./js/gameLogic.js"></script>
+</body>
+</html>
