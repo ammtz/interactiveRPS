@@ -5,21 +5,24 @@
     Does the program have a UI?
         chrome console and alerts only. No GUI.
     What are the inputs?
-        User interaction with keyboard - keyup.
+        User interaction with keyboard - keyup
     What is the desired output?
-        Messages in console and alerts in chrome, as well as keep score and/or time depending on the game to be played.
+        Progressive suspense and difficulty
+        User must be aware of score, instructions, lives, and timer during the game loop
+        Low-level animations that add game experience in a light-weight style
+        Use of pixelart is a must ::)
 ## 2. Pseudocode
     Write up solution in regular human words
-        - Points scoring system: Rock beats scissors, scissors beat paper, and paper beats rock.
-        - while game is not over, game will keep on going.
-        - game can be over if: user hits "x" or user lives are 0.
-        - when regular game function is running, ask user to select r/p/s, randomize computer selection, calculate outcome, print outcome to user, store scores.
-        - when survival game function is running, ask user to select r/p/s within the next 5 seconds, randomize computer selection, calculate outcome, print outcome to user, store scores, decrease timer by 5%. If user does not select when timer runs out they loose a life.
-        - when game is over tell user his scores, and if he's top 5 in leaderboards, ask for his name.
-        - when game is over ask user if he wants to play again. If not, end game loop.
+        - Points scoring system: Rock beats scissors, scissors beat paper, and paper beats rock
+        - while game is not over, game will keep on going
+        - game can be over if: user hits "x" or user lives are 0
+        - when regular game function is running, ask user to select r/p/s, randomize computer selection, calculate outcome, print outcome to user, store scores
+        - when survival game function is running, ask user to select r/p/s within the next 5 seconds, randomize computer selection, calculate outcome, print outcome to user, store scores,             decrease timer by 5%. If user does not select when timer runs out they loose a life
+        - when game is over tell user his scores, and if he's top 5 in leaderboards, ask for his name
+        - when game is over ask user if he wants to play again. If not, end game loop
         
 ## 3. Divide and conquer
-    Solve small problems, decompose.
+    Solve small problems, decompose
 
     chunk 1 - basic game UI
         f1 - a UI that lets user interact with the game
@@ -79,7 +82,12 @@
                 - back to main menu button
                 - restart game button
 
-    chunk 2 - survival mode
+    chunk 3 - beautify
+        - add better clock animation for suspense
+        - add actual match selections from both user and cpu
+        - add game over flashing screen as gameboy game over animations
+        
+    chunk 4 - survival mode
         f1 - improved main menu UI
                 - add game type survival mode toggle to main menu
         f2 - add survival mode logic and UI enhancements
@@ -89,7 +97,7 @@
                             - timer begins at 5 and is reduced every turn by 0.5 seconds until x is 0.5
         f3 - reduce status animation times so user feels a sense of "progressive" urgency over time
 
-    chunk 3 - leaderboards
+    chunk 5 - leaderboards
         f1 - leaderboard button in main menu
         f2 - create leaderboard UI
             - table with name, score, date
