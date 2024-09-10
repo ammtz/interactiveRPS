@@ -19,22 +19,19 @@
 
     <!-- Game UI -->
     <div id="game-ui" class="main-container hidden">
-        <div class="status-bar">
-            <div id="timer-box">Time: 00:00</div>
-            <div id="lives-box">Lives: 3</div>
-            <div id="score-box">Score: 0</div>
-            <div id="state-box">Press Space to Start</div>
-        </div>
         <div class="content-wrapper">
+            <div class="floating-message">
+                <div id="state-box">State: Ready</div>
+            </div>
             <div class="game-container">
                 <p id="instructions">Press Space to Begin</p>
                 <div class="info">
                     <div id="score-box">Score: 0</div>
                     <div id="lives-box">Lives: 3</div>
                     <div id="timer-box">Time: 00:00</div>
-                    <div id="state-box">State: Ready</div>
                 </div>
                 <!-- Game Area for Rock Paper Scissors Choices -->
+                <div id="state-box">Press Space to Start</div>
                 <div id="game-area" class="game-area">
                     <!-- Game controls and choices will go here -->
                 </div>
@@ -48,7 +45,6 @@
             <div class="game-container">
                 <h2>Game Over</h2>
                 <p id="final-score">Final Score: 0</p>
-                <button id="restart-game-btn" class="button">Restart Game</button>
                 <button id="return-menu-btn" class="button">Return to Main Menu</button>
             </div>
         </div>

@@ -82,6 +82,16 @@
                 - back to main menu button
                 - restart game button
 
+
+    ---
+    After careful consideration, I decided to move to a file structure based on ES6 modules like this:
+    /js
+    - main.js           Entry point that initializes the game
+    - gameState.js      Game state management (start game, game loop, game over)
+    - ui.js             UI updates and utility functions
+    - gameLogic.js      Core game logic (user choice handling, computer choice, results)
+    - timer.js          Timer management functions
+
     chunk 3 - beautify
         - add better clock animation for suspense
         - add actual match selections from both user and cpu
