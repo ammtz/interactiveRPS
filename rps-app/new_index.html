@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA Layout Example</title>
+    <link rel="stylesheet" href="./css/styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="content-wrapper">
+        <!-- Header Section -->
+    <header>
+        <nav>
+            <h1>Rock Paper Scissors Game</h1>
+            <a id="start-game-btn" class="nav button" href="#">Play Game</a>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+        <div class="grid-container">
+              <!-- Section 1 (Top Left) -->
+            <div class="section square">player selection section</div>
+
+            <!-- Section 2 (Top Right) -->
+            <div class="section square">cpu selection section</div>
+
+
+
+            <!-- Section 3 (Bottom, spans across both columns) -->
+            <div class="section long">
+                <div class="section square">score</div>
+                <div class="section square">lives</div>
+            </div>
+            <!-- Section 4 (Bottom, spans across both columns) -->
+            <div class="section long">
+                <div class="section square">
+                    <a id="rockButton" href="#">Rock</a>
+                </div>
+                <div class="section square">
+                    <a id="paperButton" href="#">Paper</a>
+                </div>
+                <div class="section square">
+                    <a id="scissorsButton" href="#">Scissors</a>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Footer</p>
+    </footer>
+
+    </div>
+
+    
+</body>
+</html>

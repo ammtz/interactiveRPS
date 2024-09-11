@@ -1,69 +1,172 @@
+/* General CSS for SPA Layout */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    min-height: 100vh; /* Ensures full viewport height */
+    display: grid;
+    grid-template-rows: 60px 1fr 60px; /* Header, content, footer sizes */
+    grid-template-columns: 100%; /* Single column layout */
+    grid-template-areas:
+        "header"
+        "main"
+        "footer";
+    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
 }
 
-.main-container {
+.content-wrapper {
+    display: grid; /* Use grid for layout */
+    grid-template-rows: auto 1fr auto; /* Header, main, footer sizes */
+    grid-template-columns: 100%; /* Single column layout */
+    grid-template-areas:
+        "header"
+        "main"
+        "footer";
+    height: 100vh; /* Full viewport height */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Includes padding and border in height/width */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+header {
+    grid-area: header;
+    background-color: #404040;
+    color: white;
+    padding: 0 20px;
+    border-bottom: 1px solid #ddd;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
+    height: 60px; /* Fixed height for header */
+    box-sizing: border-box; /* Ensures padding does not add extra height */
+    width: 100%; /* Full width */
 }
 
-.status-bar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #222;
-    color: #fff;
+/* Navigation Styling */
+nav {
     display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    border-bottom: 2px solid #444;
+    justify-content: space-between; /* Space between title and button */
+    align-items: center; /* Center items vertically */
+    width: 100%; /* Full width of header */
+    max-width: 900px; /* Max width to keep the content centered */
 }
 
-.hidden {
-    display: none;
+
+footer {
+    grid-area: footer;
+    background-color: #808080;
+    padding: 0 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px; /* Fixed height for footer */
+    box-sizing: border-box; /* Ensures padding does not add extra height */
+    width: 100%; /* Full width */
 }
 
+main {
+    grid-area: main;
+    display: flex; /* Flexbox to center the content */
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
+    height: calc(100vh - 120px); /* Full height minus header and footer */
+    padding: 0; /* Remove default padding */
+    overflow: hidden; /* Prevents scrolling */
+    box-sizing: border-box; /* Include padding and border in height/width */
+    width: 100%; /* Full width */
+}
+
+/* Grid Container inside Main */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for top sections */
+    grid-template-rows: 1fr 0.25fr 1fr; /* Two rows for all sections */
+    gap: 10px; /* Space between grid items */
+    max-width: 1200px; /* Max width for the container */
+    width: 100%; /* Full width for responsiveness */
+    height: 80%; /* Full height of the main area */
+    box-sizing: border-box; /* Include padding and border in height/width */
+}
+
+/* Section Styling */
+.section {
+    background-color: #fff;
+    display: flex;
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Full height of grid cell */
+    width: 100%; /* Full width of grid cell */
+    box-sizing: border-box; /* Include padding and border in height/width */
+}
+
+/* Section Modifiers */
+.section.long {
+    grid-column: span 2; /* Spans across both columns */
+    height: 100%; /* Consistent height with other sections */
+}
+
+.section.square {
+    width: 100%; /* Full width of grid cell */
+    height: 100%; /* Full height of grid cell */
+    display: flex; /* Flexbox for centering content */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    box-sizing: border-box; /* Ensures no overflow from padding */
+}
+
+/* General Button Stuff */
 .button {
-    padding: 10px 20px;
-    font-size: 18px;
-    margin-top: 20px;
-    cursor: pointer;
-    background-color: transparent;
-    color: #cdcdcd;
-    border: 2px solid #cdcdcd;
-    transition: background-color 0.3s, color 0.3s;
+    display: inline-block;
+    padding: 12px 24px; 
+    font-size: 16px; 
+    font-weight: 600; 
+    color: white; 
+    background-color: #3d2a72; /* Button background color */
+    border: none; /* Removes default border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Changes cursor on hover */
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1); /* Subtle shadow for depth */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Removes underline from links */
 }
 
+/* Hover effect for buttons */
 .button:hover {
-    background-color: #cdcdcd;
-    color: #000000;
+    background-color: #4a3d6d; /* Darker shade on hover */
+    box-shadow: 0 6px 10px rgba(0, 123, 255, 0.15); /* Slightly larger shadow */
+    transform: translateY(-2px); /* Lifts button */
 }
 
-.game-container {
-    text-align: center;
-    margin-top: 20px;
+/* Active effect for buttons */
+.button:active {
+    transform: translateY(0); /* Neutralizes lift on click */
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1); /* Original shadow */
 }
 
-.info {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+/* Navigation Button Style */
+.nav.button {
+    background-color: transparent; /* Transparent background */
+    color: #cfc2f1; /* Text color */
+    border: 2px solid #cfc2f1; /* Border color */
+    box-shadow: none; /* Removes shadow */
+    padding: 10px 22px; /* Adjusted padding */
 }
 
-#instructions {
-    font-size: 20px;
-    margin-bottom: 20px;
+/* Hover effect for navigation buttons */
+.nav.button:hover {
+    background-color: #4a3d6d; /* Background color on hover */
+    color: #cfc2f1; /* Text color changes to white */
+    border-color: #4a3d6d; /* Border changes color */
+    box-shadow: 0 6px 10px rgba(255, 255, 255, 0.15); /* Adds shadow */
+    transform: translateY(-2px); /* Lifts button */
 }
 
-.game-area {
-    margin-top: 20px;
+/* Active effect for navigation buttons */
+.nav.button:active {
+    transform: translateY(0); /* Neutralizes lift on click */
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Original shadow */
 }

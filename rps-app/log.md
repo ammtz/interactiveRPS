@@ -84,7 +84,7 @@
 
 
     ---
-    After careful consideration, I decided to move to a file structure based on ES6 modules like this:
+    After careful consideration, I decided to move to a file structure based on ES6 modules:
     /js
     - main.js           Entry point that initializes the game
     - gameState.js      Game state management (start game, game loop, game over)
