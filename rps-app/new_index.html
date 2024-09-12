@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPA Layout Example</title>
     <link rel="stylesheet" href="./css/styles.css"> <!-- Link to your CSS file -->
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="content-wrapper">
@@ -20,11 +21,10 @@
     <main>
         <div class="grid-container">
               <!-- Section 1 (Top Left) -->
-            <div class="section square">player selection section</div>
+            <div class="section square animation-zone" id="player-zone">player selection section</div>
 
             <!-- Section 2 (Top Right) -->
-            <div class="section square">cpu selection section</div>
-
+            <div class="section square animation-zone" id="cpu-zone">cpu selection section</div>
 
 
             <!-- Section 3 (Bottom, spans across both columns) -->
@@ -34,13 +34,13 @@
             </div>
             <!-- Section 4 (Bottom, spans across both columns) -->
             <div class="section long">
-                <div class="section square">
+                <div class="section square selection">
                     <a id="rockButton" href="#">Rock</a>
                 </div>
-                <div class="section square">
+                <div class="section square selection">
                     <a id="paperButton" href="#">Paper</a>
                 </div>
-                <div class="section square">
+                <div class="section square selection">
                     <a id="scissorsButton" href="#">Scissors</a>
                 </div>
             </div>
@@ -50,7 +50,7 @@
 
     <!-- Footer Section -->
     <footer>
-        <p>Footer</p>
+        <p style="color: whitesmoke">code by @amonte 2024</p>
     </footer>
 
     </div>
