@@ -24,7 +24,7 @@
 ## 3. Divide and conquer
     Solve small problems, decompose
 
-    chunk 1 - basic game UI
+    day 1 part 1 - basic game UI
         f1 - a UI that lets user interact with the game
                 - must have a main menu with a start game button
                 - must have a UI in chrome that shows status, a clock, lives, and score
@@ -37,7 +37,7 @@
             - state box
         f3 - a UI that shows game over and results
 
-    chunk 2 - basic game functionality
+    day 1 part 2 - basic game functionality
             - instructions
                 - show user instructions in the screen before game starts:
                     "click R P or S for Rock, Paper or Scissors. 
@@ -82,8 +82,8 @@
                 - back to main menu button
                 - restart game button
 
-
-    ---
+---
+    day 2
     After careful consideration, I decided to move to a file structure based on ES6 modules:
     /js
     - main.js           Entry point that initializes the game
@@ -91,6 +91,12 @@
     - ui.js             UI updates and utility functions
     - gameLogic.js      Core game logic (user choice handling, computer choice, results)
     - timer.js          Timer management functions
+---
+    day 3
+    added functionality to the timer
+    made some updates to the layout with a new file (just testing for now...)
+    will add this new layout tomorrow to the index.html file
+
 
     chunk 3 - beautify
         - add better clock animation for suspense
