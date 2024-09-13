@@ -8,137 +8,141 @@ let roundResults = [];
 let timerInterval;
 let gameStarted = false;
 
-export function showInstructions() {
-    const instructionsText = `
-        Click R, P, or S for Rock, Paper, or Scissors.
-        If you run out of time, you lose a life.
-        If the computer beats you, you lose a life.
-        You start with 3 lives.
-        Press space to begin...
-    `;
-    document.getElementById('instructions').innerText = instructionsText;
-}
-
-export function resetGame() {
-    score = 0;
-    lives = 3;
-    timerValue = 5;
-    roundResults = [];
-    updateStatus(score, lives, timerValue);
-}
-
-export function startGame() {
-    gameStarted = true;
-    resetGame();
-    document.getElementById('main-menu').classList.add('hidden');
-    document.getElementById('game-over').classList.add('hidden');
-    document.getElementById('game-ui').classList.remove('hidden');
-    roundStart(); // Begin the first round
-}
-
-export function roundStart() {
-    updateStateMessage("Ready?");
-    setTimeout(() => {
-        choose();
-    }, 2000); // Show "Ready?" for 2 seconds
-}
-
-export function choose() {
-    updateStateMessage("Make your pick...");
-    startTimer(); // Start the timer for user input
-    document.addEventListener('keyup', handleUserChoice);
-}
-
-export function startTimer() {
-    timerValue = 5; // Reset timer to 5 seconds
-    const timerDisplay = document.getElementById('timer-box');
-    timerDisplay.innerText = `Time: ${timerValue}`;
-    
-    timerInterval = setInterval(() => {
-        timerValue--;
-        timerDisplay.innerText = `Time: ${timerValue}`;
-        
-        if (timerValue <= 0) {
-            clearInterval(timerInterval);
-            handleTimeout(); // If time runs out, handle timeout
-        }
-    }, 1000); // Update every second
-}
-
-export function handleUserChoice(event) {
-    const choice = event.key.toUpperCase();
-    if (['R', 'P', 'S'].includes(choice)) {
-        clearInterval(timerInterval); // Stop the timer
-        document.removeEventListener('keyup', handleUserChoice); // Remove the event listener
-        thinking(choice); // Go to the thinking state
+/* 
+===================
+Helper functions
+===================
+*/
+// update an element's innerText
+function modifyInnerTextById(elementId, newText) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.innerText = newText;
+    } else {
+        console.warn(`Element with ID '${elementId}' not found.`);
     }
 }
+  
+// update an element's innerText after a specified delay
+function updateInnerTextAfterDelay(elementId, newText, delayMilliseconds) {
+    const element = document.getElementById(elementId);
+    if (!element) {
+        console.warn(`Element with ID '${elementId}' not found.`);
+        return;
+    }
 
-export function handleTimeout() {
-    document.removeEventListener('keyup', handleUserChoice); // Remove the event listener
-    roundResults.push('lose'); // Append result (lose) to round results
-    roundEnd('lose');
-}
-
-export function thinking(userChoice) {
-    updateStateMessage("Thinking...");
     setTimeout(() => {
-        const computerChoice = getRandomChoice(); // Random choice for computer
-        const result = evaluateChoices(userChoice, computerChoice);
-        roundResults.push(result);
-        roundEnd(result);
-    }, 2000); // Simulate thinking for 2 seconds
+        element.innerText = newText;
+    }, delayMilliseconds);
 }
 
-export function getRandomChoice() {
+// start a thinking... retro animation for some time (in milliseconds)
+function retroThinkingAnimation(elementId, animationDuration) {
+    const element = document.getElementById(elementId);
+    if (!element) {
+        console.warn(`Element with ID '${elementId}' not found.`);
+        return;
+    }
+
+    let dotCount = 0; 
+    const maxDots = 3;
+    const intervalDuration = animationDuration / 8; 
+    
+    const animationInterval = setInterval(() => {
+        dotCount = (dotCount + 1) % (maxDots + 1);
+        element.innerText = "Thinking" + '.'.repeat(dotCount);
+    }, intervalDuration);
+
+    setTimeout(() => {
+        clearInterval(animationInterval);
+    }, animationDuration);
+}
+
+// get a random cpu choice
+function getRandomChoice() {
     const choices = ['R', 'P', 'S'];
     return choices[Math.floor(Math.random() * choices.length)];
 }
 
-export function evaluateChoices(userChoice, computerChoice) {
+/* 
+===================
+Game Flow function exports
+===================
+*/
+
+// initial game instructions
+export function showInstructions(elementId, delayMilliseconds) {
+    gameStartMessages = [
+        "Welcome!",
+        "Select Rock, Paper, or Scissors",
+        "Make sure to do it before the time ends!",
+        "Don't worry, I'll count your wins, ties, and losses",
+        "And if you're good enough...",
+        "I'll save your score on our leaderboards ;)",
+        "Ready?",
+    ];
+    // show each message with a delay
+    for (let i = 0; i < gameStartMessages.length; i++) {
+        updateInnerTextAfterDelay(elementId, gameStartMessages[i], delayMilliseconds);
+    }
+}
+
+// cpu selecting an option (when timer arrives at 0)
+export function processComputerSelection(elementId, delayMilliseconds) {
+    retroThinkingAnimation(elementId, delayMilliseconds);
+    setTimeout(() => {
+        const computerChoice = getRandomChoice(); // Random choice for computer
+    });
+}
+
+// evaluate round (if userSelectOnTime true)
+export function evaluateRound(userChoice, computerChoice, userSelectOnTime) {
+    if (!userSelectOnTime) return 'loss';
     if (userChoice === computerChoice) return 'tie';
     if (
         (userChoice === 'R' && computerChoice === 'S') ||
         (userChoice === 'P' && computerChoice === 'R') ||
         (userChoice === 'S' && computerChoice === 'P')
     ) return 'win';
-    return 'lose';
+    return 'loss';
 }
 
-export function roundEnd(result) {
-    updateStateMessage(`You ${result}!`);
-    
-    if (result === 'lose') {
-        lives--;
-    } else if (result === 'win') {
-        score++;
+// store data from round
+export function storeRoundData(roundResult, roundResultList){
+    roundResultList.push(roundResult);
+}; 
+
+// update UI scores and lives
+export function updateScreen(scoreElementId, livesElementId, roundResult){
+    score = Number(scoreElementId.innerText);
+    lives = Number(livesElementId.innerText);
+    if (roundResult === 'tie') {
+        return;
+    } else if (roundResult === 'win') {
+        scoreElementId.innerText = score++;
+    } else {
+        livesElementId.innerText = lives--;
     }
-
-    updateStatus(score, lives, timerValue); // Update UI with new score and lives
-
-    setTimeout(() => {
-        if (lives <= 0) {
-            gameOver();
-        } else {
-            roundStart(); // Start a new round
-        }
-    }, 2000); // Show result for 2 seconds
 }
 
-export function gameOver() {
-    updateStateMessage("Game Over");
-    document.getElementById('game-ui').classList.add('hidden');
-    document.getElementById('game-over').classList.remove('hidden');
-    document.getElementById('final-score').innerText = `Final Score: ${score}`;
-    gameStarted = false;
-}
-
-export function updateStateMessage(message) {
-    document.getElementById('state-box').innerText = message;
-}
-
-export function updateStatus(score, lives, time) {
-    document.getElementById('score-box').innerText = `Score: ${score}`;
-    document.getElementById('lives-box').innerText = `Lives: ${lives}`;
-    document.getElementById('timer-box').innerText = `Time: ${time}`;
+// Round End UI refresh and checks
+export function roundEnd(livesElementId, messageElementId, playerElementId, cpuElementId, roundResultList){
+    let livesCount = Number(livesElementId.innerText);
+    if (livesCount > 0) {
+        //reset texts
+        messageElementId.innerText = "";
+        playerElementId.innerText = "";
+        cpuElementId.innerText = "";
+    } else {
+        // count scores
+        let wins = list.filter(item => item === 'win').length;
+        let loses = list.filter(item => item === 'loss').length;
+        let ties = list.filter(item => item === 'tie').length;
+        // show end of game UI
+        messageElementId.innerText = "GAME OVER";
+        playerElementId.innerText = `wins=${wins}  loses=${loses} ties=${ties}`;
+        cpuElementId.innerText = ""; 
+        // reset game...
+        
+    }
 }

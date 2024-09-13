@@ -210,3 +210,7 @@ Links section
     transform: translateY(0); /* Neutralizes lift on click */
     box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Original shadow */
 }
+
+#messageBox {
+    color: red;
+}
