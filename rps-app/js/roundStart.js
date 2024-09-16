@@ -18,10 +18,8 @@ function roundStart(rockButtonId, paperButtonId, scissorsButtonId, clockElementI
         clearTimeout(timeoutId); // Clear the timeout if a button is clicked
         resetTimer(clockElementId); // Stop the clock timer
         disableButtons(); // Disable all buttons to prevent further clicks
-
         const buttonId = event.currentTarget.id; // Get the ID of the clicked button
         // Populate the player selection section (add functionality here)
-        console.log(`Player selected: ${buttonId}`);
         evaluateRound(buttonId); // Call the next function with the button ID as the signal
     }
 
