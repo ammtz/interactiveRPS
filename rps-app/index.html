@@ -3,65 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors Game</title>
+    <title>SPA Layout Example</title>
     <link rel="stylesheet" href="./css/styles.css"> <!-- Link to your CSS file -->
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div>header</div>
-    <div>main
-        <div>grid container
-            <div></div>
-            <div></div>
-            <div>RPS pick buttons section</div>
-            <div>score and lives section</div>
+    <div class="content-wrapper">
+        <!-- Header Section -->
+    <header>
+        <nav>
+            <h1>Rock Paper Scissors Game</h1>
+            <a id="start-game-btn" class="nav button" href="#">Play Game</a>
+        </nav>
+    </header>
 
-        </div>
-    </div>
+    <!-- Main Content Section -->
+    <main>
+        <div class="grid-container">
+              <!-- Section 1 (Top Left) -->
+            <div class="section square animation-zone" id="player-zone">player selection section</div>
 
-    <div>footer</div>
-    <!-- Main Menu -->
-    <div id="main-menu" class="main-container">
-        <div class="content-wrapper">
-            <div class="game-container">
-                <h1>Rock Paper Scissors Game</h1>
-                <a id="start-game-btn" class="button" href="#">Play Game</a>
+            <!-- Section 2 (Top Right) -->
+            <div class="section square animation-zone" id="cpu-zone">cpu selection section</div>
+
+
+            <!-- Section 3 (Bottom, spans across both columns) -->
+            <div class="section long">
+                <div class="section square" id="scoreBox">score</div>
+                <div class="section square" id="messageBox">message goes here</div>
+                <div class="section square" id="livesBox">lives</div>
             </div>
-        </div>
-    </div>
-
-    <!-- Game UI -->
-    <div id="game-ui" class="main-container hidden">
-        <div class="content-wrapper">
-            <div class="floating-message">
-                <div id="state-box">State: Ready</div>
-            </div>
-            <div class="game-container">
-                <p id="instructions">Press Space to Begin</p>
-                <div class="info">
-                    <div id="score-box">Score: 0</div>
-                    <div id="lives-box">Lives: 3</div>
-                    <div id="timer-box">Time: 00:00</div>
+            <!-- Section 4 (Bottom, spans across both columns) -->
+            <div class="section long">
+                <div class="section square selection">
+                    <button id="rockButton" href="#">Rock</button>
                 </div>
-                <!-- Game Area for Rock Paper Scissors Choices -->
-                <div id="state-box">Press Space to Start</div>
-                <div id="game-area" class="game-area">
-                    <!-- Game controls and choices will go here -->
+                <div class="section square selection">
+                    <button id="paperButton" href="#">Paper</button>
+                </div>
+                <div class="section square selection">
+                    <button id="scissorsButton" href="#">Scissors</button>
                 </div>
             </div>
+            
         </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p style="color: whitesmoke">built by @monte 09.24</p>
+    </footer>
+
     </div>
 
-    <!-- Game Over Screen -->
-    <div id="game-over" class="main-container hidden">
-        <div class="content-wrapper">
-            <div class="game-container">
-                <h2>Game Over</h2>
-                <p id="final-score">Final Score: 0</p>
-                <button id="return-menu-btn" class="button">Return to Main Menu</button>
-            </div>
-        </div>
-    </div>
-
-    <script type="module" src="./js/main.js"></script> <!-- Link to your JavaScript file -->
+    
 </body>
 </html>

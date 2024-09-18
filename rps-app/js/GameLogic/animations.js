@@ -29,42 +29,81 @@ export const RetroAnimation = (() => {
 
 
 export const CountdownTimer = (() => {
-// Usage example: CountdownTimer.start('elementId', 10);
-    function start(elementId, duration) {
-        const element = document.getElementById(elementId);
-        if (!element) {
-        console.warn(`Element with ID '${elementId}' not found.`);
-        return false;
-        }
+  // format time in ss.mmm
+  const formatTime = (milliseconds) => {
+    const secondsLeft = Math.floor(milliseconds / 1000);
+    const millisecondsLeft = Math.floor(milliseconds % 1000);
+    return `${secondsLeft.toString().padStart(2, '0')}.${millisecondsLeft.toString().padStart(3, '0')}`;
+  };
 
-        let startTime = null;
-        let remainingTime = duration * 1000; // Convert to milliseconds
+  // update the text content of a UI element
+  const updateElementText = (element, text) => {
+    if (element) element.innerText = text;
+  };
 
-        function countdown(timestamp) {
-        if (!startTime) startTime = timestamp; // Initialize start time
-        const elapsed = timestamp - startTime; // Calculate elapsed time
-        remainingTime = Math.max(0, duration * 1000 - elapsed); // Calculate remaining time
+  // Create a countdown loop using rAF with customizable refresh rates (all the way down to 16ms)
+  const createCountdownLoop = (duration, updateInterval, onUpdate, onEnd) => {
+    let startTime = null;
+    let remainingTime = duration * 1000; // Convert duration to milliseconds
 
-        const secondsLeft = Math.floor(remainingTime / 1000); // Get full seconds
-        const millisecondsLeft = Math.floor(remainingTime % 1000); // Get remaining milliseconds
-        const formattedTime = `${secondsLeft.toString().padStart(2, '0')}.${millisecondsLeft.toString().padStart(3, '0')}`; // Format to ss.mmm
+    // Internal function to manage countdown with controlled updates
+    const countdown = (timestamp) => {
+      if (!startTime) startTime = timestamp; // Initialize the start time
+      const elapsedTime = timestamp - startTime; // Calculate elapsed time
+      remainingTime = Math.max(0, duration * 1000 - elapsedTime); // Calculate remaining time and clamp to 0
 
-        element.innerText = formattedTime; // Update the element's text with the formatted time
+      // Call the onUpdate callback with the remaining time
+      onUpdate(remainingTime);
 
-        if (remainingTime > 0) {
-            requestAnimationFrame(countdown); // Continue the countdown
-        } else {
-            element.innerText = '00.000'; // Ensure the element shows 00.000 when finished
-            return true; // Return true when the countdown reaches 0
-        }
-        }
+      if (remainingTime > 0) {
+        // Use setTimeout to control when the next rAF is called
+        setTimeout(() => {
+          requestAnimationFrame(countdown); // Schedule next frame after the specified interval
+        }, Math.min(updateInterval, remainingTime)); // Ensure the interval doesn't overshoot the remaining time
+      } else {
+        onEnd(); // Call the onEnd callback when countdown finishes
+      }
+    };
 
-        requestAnimationFrame(countdown); // Start the countdown animation
-        return true; // Return true to indicate the countdown started successfully
+    // Start the countdown animation
+    requestAnimationFrame(countdown);
+  };
+
+  // Function to create a retro 3-dot animation effect
+  const createRetroDotsAnimation = (elementId, interval = 500) => {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    const dots = ['', '.', '..', '...'];
+    let index = 0;
+
+    setInterval(() => {
+      element.innerText = `Loading${dots[index]}`;
+      index = (index + 1) % dots.length;
+    }, interval);
+  };
+
+  // Main function to start the countdown
+  function start(elementId, duration) {
+    const element = document.getElementById(elementId);
+    if (!element) {
+      console.warn(`Element with ID '${elementId}' not found.`);
+      return false;
     }
 
-    // Public API of the module
-    return {
-        start,
-    };
+    createCountdownLoop(
+      duration,
+      (remainingTime) => updateElementText(element, formatTime(remainingTime)),
+      () => updateElementText(element, '00.000')
+    );
+
+    return true; // Return true to indicate the countdown started successfully
+  }
+
+  // Public API of the module
+  return {
+    start,
+    createRetroDotsAnimation, // Exposing the retro dots animation function for use
+  };
 })();
+
