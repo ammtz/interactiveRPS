@@ -1,7 +1,7 @@
-// gameFlow.js
+// this module handles game flow
 
-import { getCpuChoice, determineRoundWinner } from './gameLogic.js';
-import { updateUI } from './ui.js';
+import { getCpuChoice, determineRoundWinner, createCountdownLoop } from './gameLogic.js';
+import { updateUI, toggleButtonActivation } from './ui.js';
 import { createRetroDotsAnimation, stopAnimation } from './animation.js';
 
 export const handleGameFlow = (playerChoice, score, lives) => {

@@ -1,8 +1,7 @@
-// index.js
+// this module is the entry point for the application
 
 import { handleGameFlow } from './gameFlow.js';
-import { toggleButtonActivation } from './ui.js';
-import { retroThinkingAnimation } from './animation.js';
+
 
 // Initialize the game round
 function startGameRound() {
@@ -26,7 +25,7 @@ function startGameRound() {
   );
 
   // Start CPU thinking animation
-  retroThinkingAnimation('cpu-zone', duration * 1000); // Run the animation for 5 seconds
+  createRetroDotsAnimation('cpu-zone', duration * 1000); // Run the animation for 5 seconds
 
   // Event listeners for player choices
   document.getElementById('rockButton').addEventListener('click', () => {

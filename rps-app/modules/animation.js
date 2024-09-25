@@ -1,4 +1,4 @@
-// this module handles animations
+// this module handles game animations
 
 export const createRetroDotsAnimation = (elementId, interval = 500) => {
     const element = document.getElementById(elementId);

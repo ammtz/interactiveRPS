@@ -1,5 +1,6 @@
-// This module handles game logic
+// This module handles game logic and scoring
 
+// Evaluate user/cpu selection and determine result
 export const determineRoundWinner = (playerChoice, cpuChoice) => {
     if (playerChoice === cpuChoice) return 'tie';
 
@@ -13,14 +14,14 @@ export const determineRoundWinner = (playerChoice, cpuChoice) => {
 };
 
 // get CPU choice
-const getCpuChoice = () => {
+export const getCpuChoice = () => {
     const choices = ['rock', 'paper', 'scissors'];
     const randomIndex = Math.floor(Math.random() * choices.length);
     return choices[randomIndex];
 };
 
 // start a new round
-const createCountdownLoop = (duration, updateInterval, onUpdate, onEnd) => {
+export const createCountdownLoop = (duration, updateInterval, onUpdate, onEnd) => {
     let startTime = null;
     let remainingTime = duration * 1000; // Convert duration to milliseconds
     let animationFrameId; // Store the animation frame ID for cancellation

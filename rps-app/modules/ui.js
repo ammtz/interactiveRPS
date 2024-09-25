@@ -1,3 +1,5 @@
+// This module works with html elements for UX/UI functionality
+
 // Update text boxes at round end
 export function updateUI(score, lives, timerValue, message) {
     document.getElementById('score-box').innerText = `Score: ${score}`;
