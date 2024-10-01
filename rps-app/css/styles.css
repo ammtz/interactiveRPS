@@ -45,7 +45,7 @@ header {
 /* Navigation Styling */
 nav {
     display: flex;
-    justify-content: space-between; /* Space between title and button */
+    justify-content: center; /* Space between title and button */
     align-items: center; /* Center items vertically */
     width: 100%; /* Full width of header */
     max-width: 900px; /* Max width to keep the content centered */
@@ -208,29 +208,6 @@ Links section
     box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1); /* Original shadow */
 }
 
-/* Navigation Button Style */
-.nav.button {
-    background-color: transparent; /* Transparent background */
-    color: #00ffb3; /* Text color */
-    border: 2px solid #00ffb3; /* Border color */
-    box-shadow: none; /* Removes shadow */
-    padding: 10px 22px; /* Adjusted padding */
-}
-
-/* Hover effect for navigation buttons */
-.nav.button:hover {
-    background-color: #00a876; /* Background color on hover */
-    color: #f3f3f3; /* Text color changes to white */
-    border-color: #f3f3f3; /* Border changes color */
-    box-shadow: 0 6px 10px rgba(255, 255, 255, 0.15); /* Adds shadow */
-    transform: translateY(-2px); /* Lifts button */
-}
-
-/* Active effect for navigation buttons */
-.nav.button:active {
-    transform: translateY(0); /* Neutralizes lift on click */
-    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Original shadow */
-}
 
 #messageBox {
     color: red;
