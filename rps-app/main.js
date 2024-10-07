@@ -1,2 +1,2 @@
-import { init } from './gameController.js';
+import { init } from './app.js';
 init();
