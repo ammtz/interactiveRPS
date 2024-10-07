@@ -1,126 +1,67 @@
-(() => {
-    // Constants
-    const choices = ['rock', 'paper', 'scissors'];
+// main.js
+// Module imports
+import {
+    score,
+    lives,
+    resetGameState,
+    cpuChoiceGenerator,
+    determineOutcome,
+} from './gameModule.js';
 
-    // Generator for CPU choice
-    function* cpuChoiceGenerator() {
-        while (true) {
-            yield choices[Math.floor(Math.random() * choices.length)];
+import {
+    rockButton,
+    paperButton,
+    scissorsButton,
+    updateScore,
+    updateLives,
+    updateMessage,
+    disableButtons,
+    enableButtons,
+} from './uiModule.js';
+
+import {
+    checkGameOver,
+    updateUI,
+    startRpsSequence
+} from './gameController.js';
+
+
+// Main game flow function (round-based)
+const playRound = (playerChoice) => {
+    // First disable buttons to prevent multi-clicks and tell user to chill for a sec
+    disableButtons();
+    // Add their choice and show a temporary message before the timeout function runs through
+    updateUI(playerChoice, 'thinking...', null);
+
+    // Do the round calculations
+    const cpuChoice = cpuChoiceGenerator();
+    const outcome = determineOutcome(playerChoice, cpuChoice);
+
+    // Run the timeout function for dramatic effects before showing the result
+    setTimeout(() => {
+        // Update the UI with the actual CPU choice and outcome
+        updateUI(playerChoice, cpuChoice, outcome);
+        checkGameOver();
+
+        // Re-enable buttons if the game is not over
+        if (lives > 0) {
+            enableButtons();
         }
-    }
-    const cpuChoiceGen = cpuChoiceGenerator();
+    }, 1000);
+};
 
-    // Game State
-    let score = 0;
-    let lives = 3;
+// Event Listeners
+rockButton.addEventListener('click', () => playRound('rock'));
+paperButton.addEventListener('click', () => playRound('paper'));
+scissorsButton.addEventListener('click', () => playRound('scissors'));
 
-    // DOM Elements
-    const playerZone = document.getElementById('player-zone');
-    const cpuZone = document.getElementById('cpu-zone');
-    const scoreBox = document.getElementById('scoreBox');
-    const messageBox = document.getElementById('messageBox');
-    const livesBox = document.getElementById('livesBox');
+// Game Initialization
+const init = () => {
+    resetGameState();
+    updateScore(score);
+    updateLives(lives);
+    updateMessage('Choose Rock, Paper, or Scissors to start!');
+};
 
-    const rockButton = document.getElementById('rockButton');
-    const paperButton = document.getElementById('paperButton');
-    const scissorsButton = document.getElementById('scissorsButton');
-
-    // Pure function to determine the game outcome
-    const determineOutcome = (playerChoice, cpuChoice) => {
-        if (playerChoice === cpuChoice) {
-            return 'tie';
-        } else if (
-            (playerChoice === 'rock' && cpuChoice === 'scissors') ||
-            (playerChoice === 'paper' && cpuChoice === 'rock') ||
-            (playerChoice === 'scissors' && cpuChoice === 'paper')
-        ) {
-            return 'win';
-        } else {
-            return 'lose';
-        }
-    };
-
-    // Higher-order function for composing UI update functions
-    const compose = (...fns) => arg => fns.reduceRight((acc, fn) => fn(acc), arg);
-
-    // UI Update Functions
-    const updateScore = () => {
-        scoreBox.textContent = `Score: ${score}`;
-    };
-
-    const updateLives = () => {
-        livesBox.textContent = `Lives: ${lives}`;
-    };
-
-    const updateMessage = (message) => {
-        messageBox.textContent = message;
-    };
-
-    const updatePlayerZone = (choice) => {
-        playerZone.textContent = `Player chose: ${choice}`;
-    };
-
-    const updateCpuZone = (choice) => {
-        cpuZone.textContent = `CPU chose: ${choice}`;
-    };
-
-    // Function to disable game buttons
-    const disableButtons = () => {
-        [rockButton, paperButton, scissorsButton].forEach(btn => btn.disabled = true);
-    };
-
-    // Function to check for game over
-    const checkGameOver = () => {
-        if (lives <= 0) {
-            updateMessage('Game Over!');
-            disableButtons();
-        }
-    };
-
-    // Function to update the UI based on the outcome
-    const updateUI = (playerChoice, cpuChoice, outcome) => {
-        updatePlayerZone(playerChoice);
-        updateCpuZone(cpuChoice);
-
-        if (outcome === 'win') {
-            score += 1;
-            updateScore();
-            updateMessage('You Win!');
-        } else if (outcome === 'lose') {
-            lives -= 1;
-            updateLives();
-            updateMessage('You Lose!');
-        } else {
-            updateMessage('It\'s a Tie!');
-        }
-    };
-
-    // Main game play function using functional composition
-    const playRound = (playerChoice) => {
-        const cpuChoice = cpuChoiceGen.next().value;
-        const outcome = determineOutcome(playerChoice, cpuChoice);
-
-        compose(
-            checkGameOver,
-            () => updateUI(playerChoice, cpuChoice, outcome)
-        )();
-    };
-
-    // Event Listeners
-    rockButton.addEventListener('click', () => playRound('rock'));
-    paperButton.addEventListener('click', () => playRound('paper'));
-    scissorsButton.addEventListener('click', () => playRound('scissors'));
-
-    // Game Initialization
-    const init = () => {
-        score = 0;
-        lives = 3;
-        updateScore();
-        updateLives();
-        updateMessage('Choose Rock, Paper, or Scissors to start!');
-    };
-
-    // Start the game
-    init();
-
-})();
+// Start the game
+init();
