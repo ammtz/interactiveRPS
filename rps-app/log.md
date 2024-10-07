@@ -2,15 +2,9 @@
 ### this file will describe the process for creating the rock paper scissors game.
 
 ## 1. Plan
-    Does the program have a UI?
-        YES. INDEED. IT. DOES.
-    What are the inputs?
-        User button clicks
-    What is the desired output?
-        Simple.
-        User must be aware of score, lives, and timer during the game loop
-        Low-level animations that add game experience in a light-weight style
-        *** Use of pixelart is a must ::) ***
+    Develop a quick UI to understand elements required and design a first draft of the desired experience.
+    Inputs: button clicks
+    Outputs: score, lives, timer; Low-level animation, light-weight, pixelart.
 ## 2. Pseudocode
     V0 - Simple working game...
         - Evaluation algorithm: Rock>scissors, scissors>paper, and paper>rock. Win results in +1 score. Loss results in -1 life.
