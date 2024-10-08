@@ -22,7 +22,7 @@
         Update - handle logic for changing view
 
     - MVP
-    -- Simple, single file JS
+    -- Simple, MVU modules + main file.
     
 
 ---

@@ -208,7 +208,49 @@ Links section
     box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1); /* Original shadow */
 }
 
-
 #messageBox {
     color: red;
+}
+
+/* Style for the overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    z-index: 999; /* Ensure it's behind the modal */
+}
+  
+/* Style for the modal */
+.game-over-modal {
+    font-family: 'Pixelify Sans', sans-serif;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Ensure it's above the overlay */
+}
+
+/* Style for the Play Again button */
+.play-again-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: rgb(180, 180, 180);
+    border: none;
+    cursor: pointer;
+    font-family: 'Pixelify Sans', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.play-again-button:hover {
+    background-color:rgb(143, 129, 51); /* Slightly darker yellow on hover */
+    color: #fff;
 }
